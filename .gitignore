@@ -1,15 +1,1 @@
-project/boot/*
-*/project/build/target
-*/project/boot
-*/lib_managed
-target
-.manager
-.DS_Store
-.scala_dependencies
-
-.classpath
-.project
-*.iws
-*.iml
-*.ipr
-.idea
+.metadata/*
