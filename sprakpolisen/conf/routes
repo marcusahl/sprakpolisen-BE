@@ -3,8 +3,15 @@
 # https://www.playframework.com/documentation/latest/ScalaRouting
 # ~~~~
 
-# An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
+# API Endpoints
+# Retrieve the list of loaded training words
+#GET		/api/words/					actions.TODO.retrieve
+# Add a new word to the list of training words
+POST	/api/words/:word			actions.AddWord.add(word: String)
+# Get the data on weather a word exist in the Swedish language
+GET		/api/words/:word			actions.LookupWord.lookup(word: String)
 
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+# Pages
+# An example controller showing a sample home page
+# GET     /                           controller.HomeController.index
+
