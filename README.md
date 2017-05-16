@@ -8,3 +8,6 @@ Backend for Språkpolisen
 
 ## Usage
 Spin up the webserver by using `sbt run`, then access it in the browser at http://localhost:9000
+
+## Api endpoints
+See the ./sprakpolisen/conf/routes file
