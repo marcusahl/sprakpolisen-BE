@@ -9,19 +9,34 @@ import model.dao.wordEntryDAO
 
 object wordEntry {
   implicit val wordEntryWrites: Writes[wordEntry] = (
-    (JsPath \ "userId").write[Int] and
+    (JsPath \ "languageId").write[Int] and
     (JsPath \ "word").write[String]
   )(unlift(wordEntry.unapply))
   
   
-  def addWord(userId: Int, word: String): wordEntry = {
-    val newEntry = wordEntry(userId, word)
+  def addWord(languageId: Int, word: String): wordEntry = {
+    val newEntry = wordEntry(languageId, word)
     
     wordEntryDAO.create(newEntry)  
     newEntry
-    
+      
+  }
+  
+  def deleteWord(languageId: Int, word: String) = {
+    wordEntryDAO.delete(wordEntry(languageId, word))  
     
   }
+  
+  def findWord(languageId: Int, word: String): Option[wordEntry] = {
+    val myWord = wordEntry(languageId, word)
+    
+    if (wordEntryDAO.find(word))
+      Some(myWord)
+    else
+      None
+  
+  }
+  
 }
 
-case class wordEntry (userId: Int, word: String)
+case class wordEntry (languageId: Int, word: String)

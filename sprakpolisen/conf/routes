@@ -6,10 +6,23 @@
 # API Endpoints
 # Retrieve the list of loaded training words
 #GET		/api/words/					actions.TODO.retrieve
-# Add a new word to the list of training words
-POST	/api/words/:word			actions.AddWord.add(word: String)
+
+# Word endpoints
+# Add a new word to the set of training words
+POST	/api/training/:word			actions.AddWord.add(word: String)
+# Delete a word from the set of training words
+DELETE	/api/training/:word			actions.DeleteWord.delete(word: String)
+# Check if a word exists in the training set
+GET		/api/training/:word			actions.FindWord.find(word: String)
+
+
+# List endpoints
+# Get the full list of training words
+GET		/api/training/				actions.GetList.get()
+
 # Get the data on weather a word exist in the Swedish language
 GET		/api/words/:word			actions.LookupWord.lookup(word: String)
+
 
 # Pages
 # An example controller showing a sample home page

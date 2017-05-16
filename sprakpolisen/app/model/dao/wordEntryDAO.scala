@@ -3,23 +3,54 @@ package model.dao
 import javax.inject._
 
 import anorm._
+import anorm.SqlParser._
 import play.api.db._
 import model.wordEntry
 import play.api.Play.current
 
-//case class wordEntryDAO @Inject()(db: Database){
 object wordEntryDAO {  
+  
   def create(newWord: wordEntry) = {
     DB.withConnection() { implicit connection =>
       SQL(
           """
-          | INSERT IGNORE INTO `words` (`userId`, `word`)
+          | INSERT IGNORE INTO `words` (`languageId`, `word`)
           | VALUES
-          |  ({userId}, {word});
+          |  ({languageId}, {word});
           """.stripMargin).on(
-              "userId" -> newWord.userId,
+              "languageId" -> newWord.languageId,
               "word" -> newWord.word
               ).executeInsert()
      }
    }
+  
+  def delete(newWord: wordEntry) = {
+    DB.withConnection() { implicit connection =>
+      SQL(
+          """
+          | DELETE FROM `words` 
+          | WHERE
+          | `word`={word};
+          """.stripMargin).on(
+            "word" -> newWord.word  
+            ).executeUpdate()
+      
+    }
+  }
+  
+  def find(word: String): Boolean = {
+    DB.withConnection() { implicit connection =>
+      val results: Int= SQL(
+          """
+          | SELECT COUNT(*) as "numMatches" FROM `words`
+          | WHERE word={word}
+          """.stripMargin).on(
+             "word" -> word
+             ).as(SqlParser.int("numMatches").single)
+             
+      results != 0
+      
+    }
+  }
+  
 }

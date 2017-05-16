@@ -16,11 +16,12 @@ class AddWord extends Controller {
   def add(word: String) = Action {
     
     // This part is for writing to a database
-    // val newWord = wordEntry.addWord(1, word)
-    // Ok(Json.obj("result" -> newWord))
+    // languageId == 1 means Swedish language
+    val newWord = wordEntry.addWord(1, word)
+    Ok(Json.obj("result" -> newWord))
     
     // Adding a wordentry in memory
-    Ok(Json.obj("result" -> wordEntry(1, word)))
+    // Ok(Json.obj("result" -> wordEntry(1, word)))
     
   }
 }
